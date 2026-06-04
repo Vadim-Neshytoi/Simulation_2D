@@ -1,6 +1,7 @@
 from .command import Command
 from simulation.simulation_state import SimulationState
 from .command_queue import CommandQueue
+from .input.input_provider import InputProvider
 import time
 import msvcrt
 
@@ -9,12 +10,13 @@ class Controller:
     """Класс, обрабатывающий пользовательский ввод и передающий команды управления в симуляцию через очередь команд.
     Класс не содержит логики симуляции и служит только для управления её выполнением и пользовательским вводом."""
 
-    def __init__(self, simulation, renderer):
+    def __init__(self, simulation, renderer, input_provider):
         """:param self.command_queue - Очередь команд управления симуляцией, поступающих от пользователя
         :param self.simulation - Объект симуляции, содержащий состояние мира и логику его обновления.
         :param self.renderer - Объект, отвечающий за визуализацию текущего состояния симуляции.
         :param self.is_running - Флаг, определяющий, выполняется ли основной цикл приложения."""
         self.command_queue = CommandQueue()
+        self.input_provider = input_provider
         self.simulation = simulation
         self.renderer = renderer
         self.is_running = True
@@ -25,17 +27,13 @@ class Controller:
 
 
     def process_input(self):
-        """Проверяет ввод пользователя и добавляет соответствующие команды в очередь команд управления."""
-        if msvcrt.kbhit():
-            key = msvcrt.getch()
-            if key == b'r':
-                self.command_queue.enqueue(Command.RUN)
-            elif key == b'p':
-                self.command_queue.enqueue(Command.PAUSE)
-            elif key == b's':
-                self.command_queue.enqueue(Command.STEP)
-            elif key == b'q':
-                self.command_queue.enqueue(Command.QUIT)
+        """Получает команду от InputProvider и добавляет её в очередь команд.
+
+        Отделяет логику симуляции от способа ввода,
+        обеспечивая кроссплатформенность системы."""
+        cmd = self.input_provider.get_command()
+        if cmd:
+            self.command_queue.enqueue(cmd)
 
 
     def update(self):
