@@ -32,8 +32,8 @@ class Simulation:
         self.config = {Rock: 10,
                        Tree: 10,
                        Grass: 30,
-                       Herbivore: 6,
-                       Predator: 2}
+                       Herbivore: 7,
+                       Predator: 3}
         self.context = {"map": self.game_map,
                         "kills_this_tick": set(),
                         "grass_eaten_this_turn": 0,
