@@ -1,0 +1,38 @@
+# created by virtualenv automatically
+Python cache
+__pycache__/
+*.py[cod]
+
+Virtual environments
+.venv/
+venv/
+env/
+.env
+.venv
+
+
+IDE settings
+.idea/
+.vscode/
+
+OS files
+.DS_Store
+Thumbs.db
+
+Logs
+*.log
+
+Python build files
+build/
+dist/
+*.egg-info/
+
+Coverage
+.coverage
+htmlcov/
+
+Pytest
+.pytest_cache/
+
+Mypy
+.mypy_cache/
