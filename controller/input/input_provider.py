@@ -1,4 +1,3 @@
-import msvcrt
 from abc import ABC, abstractmethod
 
 

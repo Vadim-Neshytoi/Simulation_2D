@@ -1,9 +1,6 @@
-from .command import Command
 from simulation.simulation_state import SimulationState
 from .command_queue import CommandQueue
-from .input.input_provider import InputProvider
 import time
-import msvcrt
 
 
 class Controller:
@@ -38,7 +35,7 @@ class Controller:
 
     def update(self):
         """Обрабатывает команды управления, обновляет состояние симуляции и при необходимости выполняет один шаг симуляции.
-        :param worlad_updated - Флаг, сигнализирующий о том, изменилось ли состояние симуляции в текущем обновлении
+        :param world_updated - Флаг, сигнализирующий о том, изменилось ли состояние симуляции в текущем обновлении
          и требуется ли перерисовка мира."""
         world_updated = False
         cmd = self.command_queue.dequeue()
